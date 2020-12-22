@@ -58,13 +58,22 @@ router.put('/:id',  (req, res, next) => {
 
 //Add a favourite. No Error Handling Yet. Can add duplicates too!
 router.post('/:userName/favourites', async (req, res, next) => {
+  try {
   const newFavourite = req.body.id;
   const userName = req.params.userName;
   const movie = await movieModel.findByMovieDBId(newFavourite);
   const user = await User.findByUserName(userName);
-  await user.favourites.push(movie._id);
-  await user.save(); 
-  res.status(201).json(user).catch(next); 
+  if (!user.favourites.includes(movie)) {
+    await user.favourites.push(movie._id);
+    await user.save(); 
+    res.status(201).json(user).catch(next); 
+  }
+  else {
+    console.log("This movie is already in your favourites",{err})
+  }}
+  catch(error) {
+    console.log("Please us a valid movie ID",{error})
+  }
 });
 
 router.get('/:userName/favourites', (req, res, next) => {
