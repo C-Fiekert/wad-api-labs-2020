@@ -21,14 +21,14 @@ const errHandler = (err, req, res, next) => {
   res.status(500).send(`Hey!! You caught the error 👍👍, ${err.stack} `);
 };
 
-const app = express();
-
-const port = process.env.PORT;
-
 if (process.env.SEED_DB) {
   loadUsers();
   loadMovies();
 }
+
+const app = express();
+
+const port = process.env.PORT;
 
 //session middleware
 app.use(session({
@@ -40,11 +40,10 @@ app.use(session({
 
 
 //configure body-parser
+app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
-app.use(express.static('public'));
-//update /api/Movie route
-//app.use('/api/movies', authenticate, moviesRouter);
+
 //app.use(passport.initialize());​
 app.use('/api/movies', passport.authenticate('jwt', {session: false}), moviesRouter);
 app.use('/api/movies', moviesRouter);

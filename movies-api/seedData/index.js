@@ -6,32 +6,17 @@ const users = [
   {
     'username': 'user1',
     'password': 'test1',
-    'favourites': [
-      {
-      'id': 111,
-      'title': 'Jaws'
-      }
-    ]
+    'favourites': []
   },
   {
     'username': 'user2',
     'password': 'test2',
-    'favourites': [
-      {
-      'id': 112,
-      'title': 'Green Mile'
-      }
-    ]
+    'favourites': []
   },
   {
     'username': 'user3',
     'password': 'test3',
-    'favourites': [
-      {
-      'id': 113,
-      'title': 'Forest Gump'
-      }
-    ]
+    'favourites': []
   },
 ];
 
